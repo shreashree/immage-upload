@@ -2,13 +2,16 @@
   <div>
     <h1>Image Upload and Text Extraction</h1>
     <input type="file" @change="handleFileUpload" accept="image/*">
-    <button @click="extractText">Upload and Extract Text</button>
+  
+    <button @click="populateTextArea">Show Extracted Text</button>
     <div v-if="imageUrl">
-      <img :src="imageUrl" alt="Uploaded Image" style="max-width: 400px;">
+      <img :src="imageUrl" alt="Uploaded Image" style="max-width: 400px;"><br><br>
     </div>
-    <div v-if="extractedText">
-      <p>{{ extractedText }}</p>
+    <div>
+      <textarea v-if="extractedText" v-model="extractedText" rows="10" cols="50"></textarea>
+      <p v-if="wordCount">Total Wrods : {{wordCount}} </p>
     </div>
+    
   </div>
 </template>
 
@@ -21,6 +24,7 @@ export default {
       selectedFile: null,
       imageUrl: '',
       extractedText: '',
+      wordCount:0,
     };
   },
   methods: {
@@ -28,11 +32,12 @@ export default {
       this.selectedFile = event.target.files[0];
       this.imageUrl = URL.createObjectURL(this.selectedFile);
     },
-    extractText() {
+    populateTextArea() {
       if (this.selectedFile) {
         Tesseract.recognize(this.selectedFile, 'eng', { logger: info => console.log(info) })
           .then(({ data: { text } }) => {
             this.extractedText = text;
+            this.wordCount = text.split(/\s+/).filter(word => word.trim() !== '').length;
           })
           .catch(error => {
             console.error('Error extracting text:', error);
@@ -42,3 +47,9 @@ export default {
   },
 };
 </script>
+<style>
+p{
+  color: blue;
+}
+
+</style>
