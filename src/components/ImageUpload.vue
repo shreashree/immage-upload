@@ -1,8 +1,7 @@
 <template>
   <div>
     <h1>Image Upload and Text Extraction</h1>
-    <input type="file" @change="handleFileUpload" accept="image/*">
-  
+    <input type="file" @change="handleFileUpload" accept="image/*">  
     <button @click="populateTextArea">Show Extracted Text</button>
     <div v-if="imageUrl">
       <img :src="imageUrl" alt="Uploaded Image" style="max-width: 400px;"><br><br>
