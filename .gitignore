@@ -1,4 +1,4 @@
-node_modules
+
 # .DS_Store
 # node_modules
 # /dist
@@ -22,3 +22,4 @@ node_modules
 # *.njsproj
 # *.sln
 # *.sw?
+node_modules

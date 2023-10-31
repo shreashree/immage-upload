@@ -4,10 +4,10 @@
     <input type="file" @change="handleFileUpload" accept="image/*">  
     <button @click="populateTextArea">Show Extracted Text</button>
     <div v-if="imageUrl">
-      <img :src="imageUrl" alt="Uploaded Image" style="max-width: 400px;"><br><br>
+      <img :src="imageUrl" alt="Uploaded Image" style="max-width: 400px; margin-top:10px"><br><br>
     </div>
     <div>
-      <textarea v-if="extractedText" v-model="extractedText" rows="10" cols="50"></textarea>
+      <textarea v-if="extractedText" v-model="extractedText" rows="10" cols="50" style="color:blue;" >extracted text</textarea>
       <p v-if="wordCount">Total Wrods : {{wordCount}} </p>
     </div>
     
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+// tesseract is used to extract text from image
 import Tesseract from 'tesseract.js';
 
 export default {
